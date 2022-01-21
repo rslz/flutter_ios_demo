@@ -6,6 +6,8 @@
 //
 
 #import "SceneDelegate.h"
+#import "HomeViewController.h"
+#import "MineViewController.h"
 
 @interface SceneDelegate ()
 
@@ -15,9 +17,48 @@
 
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+
+    self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
+
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.frame = windowScene.coordinateSpace.bounds;
+
+
+    //1.创建Tab导航条控制器
+    UITabBarController *tabControl = [[UITabBarController alloc] init];
+    tabControl.tabBar.barStyle = UIBarStyleBlack;
+    
+    UITabBar *tabbar = tabControl.tabBar;
+    UIColor *tabRedColor = [UIColor colorWithRed:0.929f green:0.243f blue:0.259f alpha:1.00f];
+    tabbar.tintColor = tabRedColor;
+    tabbar.translucent = NO;
+    tabbar.barTintColor = [UIColor whiteColor];
+    
+    tabbar.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    tabbar.layer.shadowOffset = CGSizeMake(0,-3);
+    tabbar.layer.shadowOpacity = 0.1;   //阴影透明度，默认0
+    tabbar.layer.shadowRadius = 4;  //阴影半径，默认3
+    
+    //2.创建相应的子控制器（viewcontroller）
+    HomeViewController *homeVC = [[HomeViewController alloc] init];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"home" image:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UINavigationController *nav1= [[UINavigationController alloc]initWithRootViewController: homeVC];
+
+    MineViewController *mineVC = [[MineViewController alloc] init];
+    mineVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"mine" image:[[UIImage imageNamed:@"Tabbar-Icon-Contact-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-Contact-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController: mineVC];
+
+    //将Tab导航条控制器设为window根控制器
+    [tabControl setViewControllers:@[ nav1, nav2]];
+
+    
+    self.window.rootViewController = tabControl;
+
+    //显示window
+    [self.window makeKeyAndVisible];
+
 }
 
 
