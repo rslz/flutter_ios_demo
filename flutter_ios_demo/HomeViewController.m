@@ -10,22 +10,10 @@
 #import <FlutterPluginRegistrant/GeneratedPluginRegistrant.h>
 
 @interface HomeViewController ()
-@property (nonatomic, strong) FlutterEngine *flutterEngine;
-@property (nonatomic, strong) FlutterViewController *flutterVc;
-@property (nonatomic, strong) FlutterBasicMessageChannel *msgChannel;
+
 @end
 
 @implementation HomeViewController
-
-- (FlutterEngine *)flutterEngine {
-    if (!_flutterEngine) {
-        FlutterEngine *engine = [[FlutterEngine alloc]initWithName:@"lcr"];
-        if (engine.run) {
-            _flutterEngine = engine;
-        }
-    }
-    return _flutterEngine;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,55 +30,32 @@
         self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     }
     
-    
-    self.flutterVc = [[FlutterViewController alloc]initWithEngine:self.flutterEngine nibName:nil bundle:nil];
-    
-    self.msgChannel = [FlutterBasicMessageChannel messageChannelWithName:@"messageChannel" binaryMessenger:self.flutterVc.binaryMessenger];
-    
-    [self.msgChannel setMessageHandler:^(id  _Nullable message, FlutterReply  _Nonnull callback) {
-        NSLog(@"收到Flutter的：%@",message);
-    }];
-    
 }
 
 - (IBAction)pushFlutter:(id)sender {
-    self.flutterVc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    self.flutterVc.modalPresentationStyle = UIModalPresentationFullScreen;
+
+    FlutterViewController *flutterViewController = [[FlutterViewController alloc] init];
+    [flutterViewController setInitialRoute:@"goodsDetail"];
+//    [self.navigationController pushViewController:flutterViewController animated:YES];
     
-    FlutterMethodChannel *methodChannel = [FlutterMethodChannel methodChannelWithName:@"one_page" binaryMessenger:self.flutterVc.binaryMessenger];
-    
-    [methodChannel invokeMethod:@"one" arguments:nil];
-    
-    [self presentViewController:self.flutterVc animated:YES completion:nil];
-    
-    [methodChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-        if ([call.method isEqualToString:@"exit"]) {
-            [self.flutterVc dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+    [self presentViewController:flutterViewController animated:YES completion:nil];
 }
 
 
 - (IBAction)pushFlutter2:(id)sender {
-    self.flutterVc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    self.flutterVc.modalPresentationStyle = UIModalPresentationFullScreen;
     
-    FlutterMethodChannel *methodChannel = [FlutterMethodChannel methodChannelWithName:@"two_page" binaryMessenger:self.flutterVc.binaryMessenger];
-    
-    [methodChannel invokeMethod:@"two" arguments:nil];
-    
-    [self presentViewController:self.flutterVc animated:YES completion:nil];
-    
-    [methodChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-        if ([call.method isEqualToString:@"exit"]) {
-            [self.flutterVc dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+    FlutterViewController *flutterViewController = [[FlutterViewController alloc] init];
+    [flutterViewController setInitialRoute:@"myApp"];
+    [self.navigationController pushViewController:flutterViewController animated:YES];
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    static int a = 0;
-    [self.msgChannel sendMessage:[NSString stringWithFormat:@"%d",a++]];
-}
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    static int a = 0;
+//    [self.msgChannel sendMessage:[NSString stringWithFormat:@"%d",a++]];
+//}
 /*
 #pragma mark - Navigation
 

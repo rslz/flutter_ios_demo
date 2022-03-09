@@ -43,13 +43,13 @@
     
     //2.创建相应的子控制器（viewcontroller）
     HomeViewController *homeVC = [[HomeViewController alloc] init];
-    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"home" image:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"home" image:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-PersonalPage-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     UINavigationController *nav1= [[UINavigationController alloc]initWithRootViewController: homeVC];
-
+    
     MineViewController *mineVC = [[MineViewController alloc] init];
-    mineVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"mine" image:[[UIImage imageNamed:@"Tabbar-Icon-Contact-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-Contact-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    mineVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"mine" image:[[UIImage imageNamed:@"Tabbar-Icon-Contact-Normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  selectedImage:[[UIImage imageNamed:@"Tabbar-Icon-Contact-HighLighted"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController: mineVC];
-
+    
     //将Tab导航条控制器设为window根控制器
     [tabControl setViewControllers:@[ nav1, nav2]];
 
